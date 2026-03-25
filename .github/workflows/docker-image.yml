@@ -59,8 +59,3 @@ jobs:
       - name: Stop services
         if: always()
         run: docker-compose down
-
-      - name: Stop and remove containers
-        run: |
-          docker stop frontend-test backend-test
-          docker rm frontend-test backend-test
