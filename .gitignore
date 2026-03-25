@@ -1,0 +1,12 @@
+# Node modules
+frontend/node_modules/
+backend/node_modules/
+
+# Env files
+*.env
+
+# MacOS
+.DS_Store
+
+# Docker
+docker-compose.override.yml
