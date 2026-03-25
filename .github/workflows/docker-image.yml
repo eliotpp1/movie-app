@@ -59,13 +59,11 @@ jobs:
         run: |
           echo "Waiting for frontend..."
           sleep 15
+      - name: Test backend
+        run: curl --fail http://backend:3001/films || exit 1
 
-      - name: Run basic integration tests
-        run: |
-          echo "Testing frontend..."
-          curl --fail http://localhost:3000 || exit 1
-          echo "Testing backend..."
-          curl --fail http://backend:3001/films || exit 1
+      - name: Test frontend
+        run: curl --fail http://frontend:3000 || exit 1
 
       - name: Stop and remove containers
         run: |
