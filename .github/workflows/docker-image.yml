@@ -65,7 +65,7 @@ jobs:
           echo "Testing frontend..."
           curl --fail http://localhost:3000 || exit 1
           echo "Testing backend..."
-          curl --fail http://localhost:3001/films || exit 1
+          curl --fail http://backend:3001/films || exit 1
 
       - name: Stop and remove containers
         run: |
