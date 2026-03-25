@@ -45,6 +45,11 @@ jobs:
       - name: Run frontend container
         run: docker run -d --name frontend-test -p 3000:3000 movie-app-frontend
 
+      - name: Run basic integration test
+        run: |
+          curl --fail http://localhost:3000 || exit 1
+          curl --fail http://localhost:3001/films || exit 1
+
       - name: Stop containers
         run: |
           docker stop frontend-test backend-test
