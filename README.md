@@ -1,6 +1,6 @@
 # 🎬 Movie App
 
-Une application web pour gérer et consulter des films, avec affichage des posters, notes, résumés et possibilité d’ajouter, modifier ou supprimer des films.
+Une application web pour gérer et consulter des films, avec affichage des posters, notes, résumés et possibilité d’ajouter, modifier ou supprimer des films. (Projet docker)
 
 ---
 
