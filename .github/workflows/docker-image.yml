@@ -35,44 +35,30 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Build backend Docker image
-        run: docker build -t movie-app-backend ./backend
-
-      - name: Build frontend Docker image
-        run: docker build -t movie-app-frontend ./frontend
-
-      - name: Run backend container
+      - name: Start services with Docker Compose
         run: |
-          docker run -d --name backend-test \
-            --network host \
-            --env MYSQL_HOST=127.0.0.1 \
-            --env MYSQL_USER=root \
-            --env MYSQL_PASSWORD=root \
-            --env MYSQL_DB=movies_db \
-            movie-app-backend
+          # On lance tout en arrière-plan
+          docker-compose up -d
 
-      - name: Wait for backend to start
+      - name: Wait for services to be healthy
         run: |
-          echo "Waiting for backend..."
-          sleep 15
+          # On attend que MySQL et le Backend soient prêts
+          # Le backend met du temps car il attend MySQL (depends_on)
+          echo "Waiting for services..."
+          sleep 30 
 
-      - name: Run frontend container
-        run: docker run -d --name frontend-test -p 3000:3000 movie-app-frontend
+      - name: Check Backend Logs (Debug)
+        run: docker logs node_backend
 
-      - name: Wait for frontend to start
-        run: |
-          echo "Waiting for frontend..."
-          sleep 15
-          
-      - name: Test frontend
-        run: curl --fail http://localhost:3000 || exit 1
-        
       - name: Test backend
         run: curl --fail http://localhost:3001/films || exit 1
 
-      - name: Check backend logs on failure
-        if: failure()
-        run: docker logs backend-test
+      - name: Test frontend
+        run: curl --fail http://localhost:3000 || exit 1
+
+      - name: Stop services
+        if: always()
+        run: docker-compose down
 
       - name: Stop and remove containers
         run: |
