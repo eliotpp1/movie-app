@@ -61,7 +61,7 @@ jobs:
           sleep 15
           
       - name: Test frontend
-        run: curl --fail http://frontend:3000 || exit 1
+        run: curl --fail http://localhost:3000 || exit 1
         
       - name: Test backend
         run: curl --fail http://backend:3001/films || exit 1
