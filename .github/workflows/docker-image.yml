@@ -50,6 +50,21 @@ jobs:
       - name: Check Backend Logs (Debug)
         run: docker logs node_backend
 
+      - name: Seed data via API
+        run: |
+          curl -X POST http://localhost:3001/films \
+               -H "Content-Type: application/json" \
+               -d '{"title": "Inception", "rating": 10}'
+
+      - name: Test backend (should not be empty now)
+        run: |
+          RESPONSE=$(curl -s http://localhost:3001/films)
+          echo "Response: $RESPONSE"
+          if [ "$RESPONSE" == "[]" ]; then
+            echo "Error: Database is empty!"
+            exit 1
+          fi
+
       - name: Test backend
         run: curl --fail http://localhost:3001/films || exit 1
 
