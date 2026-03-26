@@ -9,7 +9,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - app-network
+      - backend-network
 
   backend:
     build: ./backend
@@ -21,7 +21,8 @@ services:
     ports:
       - "3001:3001"
     networks:
-      - app-network
+      - frontend-network
+      - backend-network
 
   frontend:
     build: ./frontend
@@ -32,10 +33,11 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - app-network
+      - frontend-network
 
 volumes:
   db_data:
 
 networks:
-  app-network:
+  frontend-network:
+  backend-network:

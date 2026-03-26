@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm config set strict-ssl false
-RUN npm install
+RUN npm config set strict-ssl false && npm install
 
 COPY . .
 
